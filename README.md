@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="1000648650.png" alt="Glimmer AI - Happy State" width="260" style="margin-right: 20px;"/>
+  <img src="1000648576.jpg" alt="Glimmer AI - Sad/Guardian State" width="260" />
+</p>
+
+<p align="center">
+  <b>Active Companion States:</b> Ambient & Responsive Dynamic Expressions
+</p>
+
 # Glimmer AI 🌟
 
 > **"Not just an AI assistant... but a living creature residing inside your phone."**
