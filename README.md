@@ -1,8 +1,20 @@
-<p align="center">
-  <img src="1000648650.png" alt="Glimmer AI - Happy State" width="260" style="margin-right: 20px;"/>
-  <img src="1000648576.jpg" alt="Glimmer AI - Sad/Guardian State" width="260" />
-</p><img width="4096" height="5727" alt="1000648650" src="https://github.com/user-attachments/assets/abb21982-b27d-490f-ba18-05ba53abe150" />
-<img width="826" height="1062" alt="1000648576" src="https://github.com/user-attachments/assets/3147b448-8972-46aa-b216-a884dd8cc5b1" />
+<table align="center" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle">
+      <img src="1000648650.png" width="240" alt="Glimmer Happy" />
+    </td>
+    <td width="20"></td> <!-- مسافة فاصلة بين الصورتين -->
+    <td align="center" valign="middle">
+      <img src="1000648576.jpg" width="240" alt="Glimmer Sad" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">
+      <br />
+      <b>حالات الرفيق النشط:</b> تعبيرات ديناميكية ومحيطية تتفاعل مع سياق استخدامك
+    </td>
+  </tr>
+</table>
 
 
 <p align="center">
