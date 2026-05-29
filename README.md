@@ -1,7 +1,9 @@
 <p align="center">
   <img src="1000648650.png" alt="Glimmer AI - Happy State" width="260" style="margin-right: 20px;"/>
   <img src="1000648576.jpg" alt="Glimmer AI - Sad/Guardian State" width="260" />
-</p>
+</p><img width="4096" height="5727" alt="1000648650" src="https://github.com/user-attachments/assets/abb21982-b27d-490f-ba18-05ba53abe150" />
+<img width="826" height="1062" alt="1000648576" src="https://github.com/user-attachments/assets/3147b448-8972-46aa-b216-a884dd8cc5b1" />
+
 
 <p align="center">
   <b>Active Companion States:</b> Ambient & Responsive Dynamic Expressions
