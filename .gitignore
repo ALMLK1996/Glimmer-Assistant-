@@ -1,0 +1,61 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+local.properties
+.DS_Store
+
+# Build artifacts
+bin/
+gen/
+out/
+
+# Kotlin
+*.kotlin_module
+.kotlinc_out/
+
+# Gradle wrapper
+gradle-wrapper.jar
+gradlew
+gradlew.bat
+
+# Environment variables
+.env
+.env.local
+gradle.properties
+
+# IDE
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Dependencies cache
+.gradle/wrapper/dists/
+
+# Logs
+*.log
+
+# Test coverage
+coverage/
+.coverage
+.pytest_cache/
+
+# Native builds
+.cxx/
+cmake-build-*/
