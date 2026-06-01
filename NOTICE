@@ -1,0 +1,58 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NOTICE — Glimmer AI
+  Required Attribution Under AGPL-3.0 + Additional Terms
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Project Name  : Glimmer AI
+  Description   : Privacy-first Ambient AI Companion Layer for Android
+
+  Original Author & Copyright Holder
+  ───────────────────────────────────
+  Full Name  :  Abdulhannan Abdulkerim
+  GitHub     :  https://github.com/ALMLK1996
+  Year       :  2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ATTRIBUTION REQUIREMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  This software is licensed under AGPL-3.0 with an additional
+  attribution clause under Section 7.
+
+  ANY distribution, fork, or network deployment of this software
+  — modified or unmodified — MUST include the following credit
+  in a user-visible location (README, About screen, or similar):
+
+  ┌─────────────────────────────────────────────────────────┐
+  │  Based on Glimmer AI                                    │
+  │  Originally created by Abdulhannan Abdulkerim           │
+  │  https://github.com/ALMLK1996                           │
+  └─────────────────────────────────────────────────────────┘
+
+  This NOTICE file must be retained unmodified in all copies
+  and substantial portions of the software.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  THIRD-PARTY COMPONENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  This software incorporates the following open-source components:
+
+  • llama.cpp         — MIT License
+    https://github.com/ggerganov/llama.cpp
+
+  • MLC-LLM           — Apache-2.0 License
+    https://github.com/mlc-ai/mlc-llm
+
+  • Whisper.cpp       — MIT License
+    https://github.com/ggerganov/whisper.cpp
+
+  • ClamAV            — GPL-2.0 License
+    https://www.clamav.net
+
+  • TensorFlow Lite   — Apache-2.0 License
+    https://www.tensorflow.org/lite
+
+  Each component retains its original copyright and license terms.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
