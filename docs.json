@@ -1,0 +1,209 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "venus",
+  "name": "Glimmer Assistant",
+  "description": "Open-source ambient AI companion for Android — your phone, alive.",
+
+  "logo": {
+    "light": "/logo/glimmer-light.svg",
+    "dark":  "/logo/glimmer-dark.svg",
+    "href":  "https://github.com/Glimmer-Assistant/glimmer"
+  },
+
+  "favicon": "/favicon.svg",
+
+  "colors": {
+    "primary":    "#4FC3F7",
+    "light":      "#81D4FA",
+    "dark":       "#0288D1",
+    "background": {
+      "light": "#FFFFFF",
+      "dark":  "#06081A"
+    },
+    "anchors": {
+      "from": "#4FC3F7",
+      "to":   "#9C6FFF"
+    }
+  },
+
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url":  "https://github.com/Glimmer-Assistant/glimmer"
+    }
+  ],
+
+  "topbarCtaButton": {
+    "name": "Download",
+    "url":  "https://github.com/Glimmer-Assistant/glimmer/releases/latest"
+  },
+
+  "tabs": [
+    {
+      "name": "Documentation",
+      "url":  "docs"
+    },
+    {
+      "name": "API Reference",
+      "url":  "api"
+    },
+    {
+      "name": "GlimmerSoul",
+      "url":  "soul"
+    },
+    {
+      "name": "Sentinel",
+      "url":  "sentinel"
+    }
+  ],
+
+  "anchors": [
+    {
+      "name":  "GitHub",
+      "icon":  "github",
+      "url":   "https://github.com/Glimmer-Assistant/glimmer"
+    },
+    {
+      "name":  "Community",
+      "icon":  "discord",
+      "url":   "https://discord.gg/glimmer"
+    },
+    {
+      "name":  "NLnet Grant",
+      "icon":  "award",
+      "url":   "https://nlnet.nl/commonsfund"
+    }
+  ],
+
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "docs/introduction",
+        "docs/quickstart",
+        "docs/installation",
+        "docs/first-summon"
+      ]
+    },
+    {
+      "group": "The Creature",
+      "pages": [
+        "docs/creature/overview",
+        "docs/creature/aurora-system",
+        "docs/creature/poses",
+        "docs/creature/physics",
+        "docs/creature/emotions"
+      ]
+    },
+    {
+      "group": "AI Core",
+      "pages": [
+        "docs/ai/overview",
+        "docs/ai/models",
+        "docs/ai/offline-inference",
+        "docs/ai/conversations",
+        "docs/ai/device-actions"
+      ]
+    },
+    {
+      "group": "GlimmerSoul",
+      "pages": [
+        "soul/overview",
+        "soul/format",
+        "soul/create",
+        "soul/publish",
+        "soul/examples"
+      ]
+    },
+    {
+      "group": "Sentinel",
+      "pages": [
+        "sentinel/overview",
+        "sentinel/trust-circle",
+        "sentinel/call-shield",
+        "sentinel/scam-patterns",
+        "sentinel/setup"
+      ]
+    },
+    {
+      "group": "System Tools",
+      "pages": [
+        "docs/tools/overview",
+        "docs/tools/duplicate-finder",
+        "docs/tools/malware-scanner",
+        "docs/tools/battery-monitor",
+        "docs/tools/cleanup"
+      ]
+    },
+    {
+      "group": "Privacy",
+      "pages": [
+        "docs/privacy/architecture",
+        "docs/privacy/data-portability",
+        "docs/privacy/eu-ai-act",
+        "docs/privacy/reproducible-builds"
+      ]
+    },
+    {
+      "group": "Plugin API",
+      "pages": [
+        "api/overview",
+        "api/quickstart",
+        "api/plugin-registry",
+        "api/soul-format",
+        "api/device-actions",
+        "api/changelog"
+      ]
+    },
+    {
+      "group": "Contributing",
+      "pages": [
+        "docs/contributing/overview",
+        "docs/contributing/code",
+        "docs/contributing/souls",
+        "docs/contributing/translations",
+        "docs/contributing/design"
+      ]
+    }
+  ],
+
+  "footerSocials": {
+    "github":   "https://github.com/Glimmer-Assistant/glimmer",
+    "x":        "https://x.com/glimmerai",
+    "discord":  "https://discord.gg/glimmer"
+  },
+
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit":  true,
+    "raiseIssue":   true
+  },
+
+  "search": {
+    "prompt": "Search Glimmer docs..."
+  },
+
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": false
+  },
+
+  "api": {
+    "baseUrl":     "https://api.glimmer.dev",
+    "auth": {
+      "method": "bearer"
+    },
+    "playground": {
+      "mode": "simple"
+    }
+  },
+
+  "openapi": "https://raw.githubusercontent.com/Glimmer-Assistant/glimmer/main/openapi.json",
+
+  "redirects": [
+    {
+      "source":      "/docs",
+      "destination": "/docs/introduction"
+    }
+  ]
+}
