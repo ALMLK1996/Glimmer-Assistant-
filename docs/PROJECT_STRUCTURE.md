@@ -1,4 +1,4 @@
-# Project Structure (Target)
+# Project Structure
 
 ```
 Glimmer-Assistant-/
@@ -6,24 +6,26 @@ Glimmer-Assistant-/
 │   └── src/main/
 │       ├── java/dev/glimmer/ai/
 │       │   ├── GlimmerApp.kt
-│       │   ├── core/
-│       │   ├── overlay/          # Light Being floating layer
-│       │   ├── character/        # Morphing, physics, performances
+│       │   ├── overlay/
+│       │   ├── character/
 │       │   ├── ai/
 │       │   ├── memory/
 │       │   ├── systemcontrol/
 │       │   ├── voice/
-│       │   ├── ui/
-│       │   └── di/
+│       │   └── ui/
 │       ├── res/
 │       └── AndroidManifest.xml
 ├── docs/
-│   ├── LIGHT_BEING.md            # ★ Core design (must read)
+│   ├── LIGHT_BEING.md
 │   ├── ARCHITECTURE.md
 │   ├── ADVANCED_SYSTEMS.md
+│   ├── OVERLAY.md
+│   ├── DECISIONS.md
+│   ├── NOTES.md
+│   ├── TODO.md
 │   ├── ROADMAP.md
-│   ├── VISION_UPDATE.md
 │   ├── PROJECT_STRUCTURE.md
+│   ├── VISION_UPDATE.md
 │   ├── CHANGELOG.md
 │   ├── PRIVACY.md
 │   ├── LEGAL.md
@@ -36,7 +38,11 @@ Glimmer-Assistant-/
 │   ├── TRANSPARENCY.md
 │   ├── USER_RIGHTS.md
 │   └── assets/
+│       ├── light-being-masterpiece.svg
+│       ├── light-being-banner.svg
+│       └── glimmer-icon.svg
 ├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
 ├── LICENSE
 ├── NOTICE
 ├── SECURITY.md
@@ -46,10 +52,4 @@ Glimmer-Assistant-/
 └── README.md
 ```
 
-## Design Priority
-
-1. `docs/LIGHT_BEING.md` — the soul of the product
-2. Overlay + Character engine stability and beauty
-3. Privacy and legal compliance
-4. Battery and performance excellence
-5. Everything else
+Code is still early. Documentation and product decisions are further ahead. That is intentional for now.
