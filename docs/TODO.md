@@ -8,8 +8,8 @@ Things that actually need to be done next. Not a roadmap, just the list on the d
 - [x] Basic floating overlay that can appear and disappear cleanly
 - [x] Simple Light Being shape with soft glow (Compose Canvas)
 - [x] PresenceController with show / hide / idle logic
-- [x] Accessibility-based interaction tracking (first version)
-- [ ] Wire PresenceController to the tracker and overlay service
+- [x] Accessibility-based interaction tracking
+- [x] Wire PresenceController to the tracker and overlay service
 - [ ] Proper permission onboarding flow for overlay + accessibility
 - [ ] Battery measurement on a mid-range device
 
