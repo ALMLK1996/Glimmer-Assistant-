@@ -12,10 +12,15 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven(url = "https://jitpack.io")
-        maven(url = "https://repo.maven.apache.org/maven2/")
     }
 }
 
 rootProject.name = "Glimmer"
 
-include(":app")
+include(
+    ":app",
+    ":core",
+    ":overlay",
+    ":character",
+    ":data"
+)
