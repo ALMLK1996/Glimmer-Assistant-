@@ -2,14 +2,13 @@ package dev.glimmer.overlay
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
 import timber.log.Timber
 
 /**
  * Observes system-wide interaction events so the Light Being
  * knows when to hide itself.
- *
- * Later this service will also be used for limited system actions.
  */
 class GlimmerAccessibilityService : AccessibilityService() {
 
@@ -32,7 +31,22 @@ class GlimmerAccessibilityService : AccessibilityService() {
             notificationTimeout = 80
         }
 
-        interactionTracker = AccessibilityInteractionTracker(this)
+        interactionTracker = AccessibilityInteractionTracker(this).also { tracker ->
+            tracker.start(object : InteractionTracker.Listener {
+                override fun onUserActive() {
+                    // Tell the overlay service the user is browsing again
+                    val intent = Intent(this@GlimmerAccessibilityService, LightBeingOverlayService::class.java).apply {
+                        action = LightBeingOverlayService.ACTION_USER_ACTIVE
+                    }
+                    startService(intent)
+                }
+
+                override fun onUserIdle() {
+                    // Idle is currently handled by PresenceController timers
+                }
+            })
+        }
+
         Timber.d("Glimmer accessibility service connected")
     }
 
@@ -49,6 +63,4 @@ class GlimmerAccessibilityService : AccessibilityService() {
         interactionTracker = null
         super.onDestroy()
     }
-
-    fun getInteractionTracker(): AccessibilityInteractionTracker? = interactionTracker
 }
