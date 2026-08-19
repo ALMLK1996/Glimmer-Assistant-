@@ -31,6 +31,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":character"))
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -41,4 +42,5 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics:1.7.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("com.jakewharton.timber:timber:5.1.0")
 }
