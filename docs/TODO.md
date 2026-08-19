@@ -4,7 +4,7 @@ Things that actually need to be done next. Not a roadmap, just the list on the d
 
 ## Near term
 
-- [ ] Solid multi-module Gradle setup
+- [x] Solid multi-module Gradle setup
 - [ ] Basic floating overlay that can appear and disappear cleanly
 - [ ] Simple Light Being shape with soft glow (Compose Canvas)
 - [ ] Idle detection and first performance sequence
