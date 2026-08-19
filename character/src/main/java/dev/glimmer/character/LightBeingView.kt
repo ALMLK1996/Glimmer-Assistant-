@@ -1,8 +1,10 @@
 package dev.glimmer.character
 
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import dev.glimmer.core.model.PresenceState
 import kotlin.math.sin
 
@@ -24,10 +27,13 @@ fun LightBeingView(
     val infiniteTransition = rememberInfiniteTransition(label = "light_being")
 
     val pulse by infiniteTransition.animateFloat(
-        initialValue = 0.85f,
-        targetValue = 1.15f,
+        initialValue = 0.88f,
+        targetValue = 1.12f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2600, easing = LinearEasing),
+            animation = tween(
+                durationMillis = if (presence == PresenceState.IDLE_PERFORMANCE) 1800 else 2800,
+                easing = LinearEasing
+            ),
             repeatMode = RepeatMode.Reverse
         ),
         label = "pulse"
@@ -37,17 +43,41 @@ fun LightBeingView(
         initialValue = 0f,
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 12000, easing = LinearEasing),
+            animation = tween(durationMillis = 14000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         ),
         label = "drift"
     )
 
-    Canvas(modifier = modifier) {
-        val center = Offset(size.width / 2f, size.height / 2f)
-        val baseRadius = size.minDimension * 0.28f * pulse
+    val targetAlpha = when (presence) {
+        PresenceState.HIDDEN -> 0f
+        PresenceState.FADING -> 0f
+        PresenceState.MATERIALIZING -> 0.7f
+        PresenceState.VISIBLE -> 1f
+        PresenceState.IDLE_PERFORMANCE -> 1f
+    }
 
-        // Soft outer aura
+    val alpha by animateFloatAsState(
+        targetValue = targetAlpha,
+        animationSpec = tween(durationMillis = 420, easing = FastOutSlowInEasing),
+        label = "alpha"
+    )
+
+    val energyMultiplier = when (presence) {
+        PresenceState.IDLE_PERFORMANCE -> 1.25f
+        PresenceState.VISIBLE -> 1f
+        else -> 0.85f
+    }
+
+    Canvas(
+        modifier = modifier.graphicsLayer { this.alpha = alpha }
+    ) {
+        if (alpha <= 0.01f) return@Canvas
+
+        val center = Offset(size.width / 2f, size.height / 2f)
+        val baseRadius = size.minDimension * 0.27f * pulse * energyMultiplier
+
+        // Outer aura
         drawCircle(
             brush = Brush.radialGradient(
                 colors = listOf(
@@ -56,13 +86,13 @@ fun LightBeingView(
                     Color.Transparent
                 ),
                 center = center,
-                radius = baseRadius * 2.4f
+                radius = baseRadius * 2.5f
             ),
-            radius = baseRadius * 2.4f,
+            radius = baseRadius * 2.5f,
             center = center
         )
 
-        // Mid energy layer
+        // Mid layer
         drawCircle(
             brush = Brush.radialGradient(
                 colors = listOf(
@@ -93,14 +123,15 @@ fun LightBeingView(
             center = center
         )
 
-        // Subtle inner nucleus
+        // Inner nucleus with slight drift
         val nucleusOffset = Offset(
-            x = center.x + sin(Math.toRadians(drift.toDouble())).toFloat() * 3f,
-            y = center.y
+            x = center.x + sin(Math.toRadians(drift.toDouble())).toFloat() * 4f,
+            y = center.y + sin(Math.toRadians((drift * 0.7).toDouble())).toFloat() * 2.5f
         )
+
         drawCircle(
-            color = Color.White.copy(alpha = 0.9f),
-            radius = baseRadius * 0.28f,
+            color = Color.White.copy(alpha = 0.92f),
+            radius = baseRadius * 0.26f,
             center = nucleusOffset
         )
     }
