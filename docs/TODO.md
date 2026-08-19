@@ -5,10 +5,11 @@ Things that actually need to be done next. Not a roadmap, just the list on the d
 ## Near term
 
 - [x] Solid multi-module Gradle setup
-- [x] Basic floating overlay that can appear and disappear cleanly (first version)
+- [x] Basic floating overlay that can appear and disappear cleanly
 - [x] Simple Light Being shape with soft glow (Compose Canvas)
 - [x] PresenceController with show / hide / idle logic
-- [ ] Idle detection wired to real screen interaction
+- [x] Accessibility-based interaction tracking (first version)
+- [ ] Wire PresenceController to the tracker and overlay service
 - [ ] Proper permission onboarding flow for overlay + accessibility
 - [ ] Battery measurement on a mid-range device
 
