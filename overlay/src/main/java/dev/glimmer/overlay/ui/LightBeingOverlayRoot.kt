@@ -5,22 +5,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.glimmer.core.model.PresenceState
 import dev.glimmer.character.LightBeingView
+import dev.glimmer.core.model.PresenceState
 
 @Composable
 fun LightBeingOverlayRoot(
     presence: PresenceState,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit = {}
 ) {
-    if (presence == PresenceState.HIDDEN || presence == PresenceState.FADING) {
-        return
-    }
+    // Even when fading we still render so the alpha animation can play
+    if (presence == PresenceState.HIDDEN) return
 
-    Box(modifier = Modifier.size(160.dp)) {
+    Box(modifier = Modifier.size(168.dp)) {
         LightBeingView(
             presence = presence,
-            modifier = Modifier.size(160.dp)
+            modifier = Modifier.size(168.dp)
         )
     }
 }
