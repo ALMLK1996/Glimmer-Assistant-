@@ -9,39 +9,97 @@ import android.graphics.PixelFormat
 import android.os.IBinder
 import android.view.Gravity
 import android.view.WindowManager
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.setViewTreeLifecycleOwner
+import androidx.savedstate.SavedStateRegistry
+import androidx.savedstate.SavedStateRegistryController
+import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import dev.glimmer.core.model.PresenceState
 import dev.glimmer.overlay.ui.LightBeingOverlayRoot
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class LightBeingOverlayService : Service() {
+class LightBeingOverlayService : Service(), LifecycleOwner, SavedStateRegistryOwner {
 
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(Dispatchers.Main + job)
+
+    private lateinit var presenceController: PresenceController
     private var windowManager: WindowManager? = null
     private var overlayView: ComposeView? = null
+
+    private val lifecycleRegistry = LifecycleRegistry(this)
+    private val savedStateRegistryController = SavedStateRegistryController.create(this)
+
+    override val lifecycle: Lifecycle
+        get() = lifecycleRegistry
+
+    override val savedStateRegistry: SavedStateRegistry
+        get() = savedStateRegistryController.savedStateRegistry
 
     private val channelId = "glimmer_overlay"
 
     override fun onCreate() {
         super.onCreate()
+
+        savedStateRegistryController.performRestore(null)
+        lifecycleRegistry.currentState = Lifecycle.State.CREATED
+
+        presenceController = PresenceController(scope)
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+
         createNotificationChannel()
         startForeground(NOTIFICATION_ID, buildNotification())
-        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+
+        lifecycleRegistry.currentState = Lifecycle.State.STARTED
+
+        // Observe presence changes and keep the overlay in sync
+        scope.launch {
+            presenceController.state.collectLatest { state ->
+                when (state.presence) {
+                    PresenceState.VISIBLE,
+                    PresenceState.MATERIALIZING,
+                    PresenceState.IDLE_PERFORMANCE,
+                    PresenceState.FADING -> ensureOverlayVisible(state.presence)
+
+                    PresenceState.HIDDEN -> removeOverlay()
+                }
+            }
+        }
+
+        Timber.d("LightBeingOverlayService created")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            ACTION_SHOW -> showOverlay()
-            ACTION_HIDE -> hideOverlay()
-            ACTION_STOP -> stopSelf()
+            ACTION_SHOW -> presenceController.onUserInteraction()
+            ACTION_HIDE -> presenceController.onUserBrowsing()
+            ACTION_USER_ACTIVE -> presenceController.onUserBrowsing()
+            ACTION_STOP -> {
+                presenceController.forceHide()
+                stopSelf()
+            }
         }
         return START_STICKY
     }
 
-    private fun showOverlay() {
-        if (overlayView != null) return
+    private fun ensureOverlayVisible(presence: PresenceState) {
+        if (overlayView != null) {
+            // View already exists; Compose will recompose from the collected state
+            return
+        }
 
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -53,33 +111,32 @@ class LightBeingOverlayService : Service() {
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.START
-            x = 80
-            y = 220
+            x = 72
+            y = 200
         }
 
         val view = ComposeView(this).apply {
+            setViewTreeLifecycleOwner(this@LightBeingOverlayService)
+            setViewTreeSavedStateRegistryOwner(this@LightBeingOverlayService)
+
             setContent {
-                LightBeingOverlayRoot(
-                    presence = PresenceState.VISIBLE,
-                    onDismissRequest = { hideOverlay() }
-                )
+                val state by presenceController.state.collectAsState()
+                LightBeingOverlayRoot(presence = state.presence)
             }
         }
 
-        // Lifecycle owners are required for Compose in a Service context.
-        // A more complete implementation will attach proper owners.
-        overlayView = view
-
         try {
             windowManager?.addView(view, params)
-            Timber.d("Light Being overlay shown")
+            overlayView = view
+            lifecycleRegistry.currentState = Lifecycle.State.RESUMED
+            Timber.d("Overlay attached")
         } catch (e: Exception) {
-            Timber.e(e, "Failed to show overlay")
+            Timber.e(e, "Failed to attach overlay")
             overlayView = null
         }
     }
 
-    private fun hideOverlay() {
+    private fun removeOverlay() {
         overlayView?.let { view ->
             try {
                 windowManager?.removeView(view)
@@ -88,7 +145,6 @@ class LightBeingOverlayService : Service() {
             }
         }
         overlayView = null
-        Timber.d("Light Being overlay hidden")
     }
 
     private fun createNotificationChannel() {
@@ -115,7 +171,10 @@ class LightBeingOverlayService : Service() {
     }
 
     override fun onDestroy() {
-        hideOverlay()
+        presenceController.forceHide()
+        removeOverlay()
+        lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        scope.cancel()
         super.onDestroy()
     }
 
@@ -124,6 +183,7 @@ class LightBeingOverlayService : Service() {
     companion object {
         const val ACTION_SHOW = "dev.glimmer.overlay.SHOW"
         const val ACTION_HIDE = "dev.glimmer.overlay.HIDE"
+        const val ACTION_USER_ACTIVE = "dev.glimmer.overlay.USER_ACTIVE"
         const val ACTION_STOP = "dev.glimmer.overlay.STOP"
         private const val NOTIFICATION_ID = 1001
     }
